@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+<div class="control-post">
+    <div>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-actions no-color" }))
+        {
+            <div class="form-actions no-color">
+                <p>
+                    Поиск по названию поста или автору <br />
+                    <input type="text" class="searchfield" name="SearchString" value="@ViewBag.currentFilter" />
+                    <input type="submit" value="Search" class="btn btn-default" /> |
+                    @Html.ActionLink(" Все посты", "Index")
+                </p>
+            </div>
+        }
+        <br />
+        <h3>Категории</h3>
+        @{Html.RenderAction("CategoryList", "Home");}
+        <h3>Тэги</h3>
+        @{Html.RenderAction("TagList", "Home");}
+    </div>
+</div>

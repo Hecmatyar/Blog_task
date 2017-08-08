@@ -1,0 +1,46 @@
+﻿@model PagedList.IPagedList<Blog.Models.Post>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using Blog.Models
+@using PagedList.Mvc;
+
+@foreach (var b in Model)
+{
+    <div class="post" id="@b.Id" style="padding:20px 0;">
+        <div class="title-post" style="background-color:#eee; padding:5px 0 15px  30px;">
+            <h3><a style="text-decoration:none; color: #444;" href="/Home/Post/@b.Id">@b.Title</a></h3>
+        </div>
+        <div class="info-post" style="padding:10px 0;">
+            <p>
+                <span>Категория: </span>
+                @Html.ActionLink(@b.Category.Name, "Index", new {
+               currentCategory = @b.Category.Name,
+               currentTag = ""
+           })
+                <span> Тэги</span>
+                @foreach (Tag c in b.Tags)
+                {
+                    <span class="tag-post">
+                        @Html.ActionLink(@c.Name, "Index", new { currentCategory = "", currentTag = @c.Name })
+                    </span>                   
+                }
+                <span style="float:right;">@b.Published</span>
+            </p>
+        </div>
+        <div class="desc-post">
+            <p>@b.ShortDescription</p>
+        </div>
+        <div class="learn-post">
+            <span class="author-post" style="float:left;">Author: @b.Author</span>
+            <span style="float:right;"><a href="/Home/Post/@b.Id">Дальше ...</a></span>
+        </div>
+    </div>
+}
+<br /><br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+{
+    page,
+    currentFilter = ViewBag.CurrentFilter,
+    currentCategory = ViewBag.currentCategory,
+    currentTag = ViewBag.currentTag
+}))

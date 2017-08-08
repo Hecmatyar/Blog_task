@@ -1,0 +1,42 @@
+﻿@model Blog.Models.Post
+@using Blog.Models
+@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a class="bottomNav" onclick="history.go(-1); return false;" href="#">Назад</a><br />
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="title-post" style="padding:20px 0 0 0;">
+            <h2>@Model.Title</h2>
+        </div>
+        <div class="info-post" style="padding:10px 0;">
+            <p>
+                <span>Категория: </span>
+                @Html.ActionLink(@Model.Category.Name, "Index", new
+           {
+               currentCategory = @Model.Category.Name,
+               currentTag = ""
+           })
+                <span> Тэги</span>
+                @foreach (Tag c in Model.Tags)
+                {
+                    <span class="tag-post">
+                        @Html.ActionLink(@c.Name, "Index", new { currentCategory = "", currentTag = @c.Name })
+                    </span>
+                }
+                <span style="float:right;">@Model.Published</span>
+            </p>
+        </div>
+        <div class="desc-post">
+            <p>@Model.Description</p>
+        </div>
+        <div class="learn-post">
+            <span class="author-post" style="float:left;">Author: @Model.Author</span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @{Html.RenderPartial("SideBar");}
+    </div>
+</div>

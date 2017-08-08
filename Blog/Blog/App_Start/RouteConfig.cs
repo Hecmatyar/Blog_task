@@ -13,11 +13,28 @@ namespace Blog
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "ModeratorPosts",
+            //    url: "Moderator/Posts/{action}/{id}",
+            //    defaults: new { action = "Index", id = UrlParameter.Optional }
+            //    );
+            //routes.MapRoute(
+            //    name: "ModeratorCategories",
+            //    url: "Moderator/Categories/{action}/{id}",
+            //    defaults: new {  id = UrlParameter.Optional }
+            //    );
+            //routes.MapRoute(
+            //    name: "ModeratorTags",
+            //    url: "Moderator/Tags/{action}/{id}",
+            //    defaults: new {  id = UrlParameter.Optional }
+            //    );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            
         }
     }
 }

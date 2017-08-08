@@ -49,9 +49,8 @@ namespace Blog.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Адрес электронной почты")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Логин")]
+        public string UserName { get; set; }        
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,8 +64,12 @@ namespace Blog.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [Display(Name = "Логин")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Адрес электронной почты")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

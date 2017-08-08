@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+@model List<Blog.Models.Tag>
+
+@foreach (Blog.Models.Tag tag in Model)
+{
+    <span class="tag">
+        @Html.ActionLink(@tag.Name, "Index", new
+   {
+       currentCategory = "",
+       currentTag = @tag.Name
+   })
+    </span>
+}
