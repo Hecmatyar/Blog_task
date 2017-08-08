@@ -19,7 +19,7 @@ namespace Blog.Models
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
         public Post()
         {
             Tags = new List<Tag>();

@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@model PagedList.IPagedList<Blog.Models.ExpandedUserDTO>
+@using PagedList.Mvc;
+<p>@Html.ActionLink("Редактировать существующие роли", "ViewAllRoles", null, new { @class = "btn btn-default" })</p>
+<br />
+@*@using (Ajax.BeginForm("Index", "Admin", new AjaxOptions { UpdateTargetId = "userlist" }))
+    {
+        <span>Посик по логину или email</span> <input type="text" name="searchStringUserNameOrEmail" class="searchfield" value="ViewBag.CurrentFilter"/>
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    }*@
+
+@using (Html.BeginForm("Index", "Admin", FormMethod.Get))
+{
+    <div class="form-group">
+        Поиск:&nbsp; @Html.TextBox("searchStringUserNameOrEmail", ViewBag.CurrentFilter as string,
+                           new { @class = "searchfield" })
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+}
+<br />
+<div id="userlist">
+    <table class="table">
+        <tr><th>Login</th><th>Email</th><th></th></tr>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>
+                    @Html.ActionLink("Edit ", "EditRoles",
+                           new { UserName = item.UserName })|
+                    @if ((item.UserName.ToLower() != this.User.Identity.Name.ToLower()))
+                    {
+                        @Html.ActionLink("Delete", "DeleteUser", new { UserName = item.UserName },
+                                new { onclick = "return confirm('Пользователь " + item.UserName + "будет удален');" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model,
+    page => Url.Action("Index",
+    new
+    {
+        page,
+        searchStringUserNameOrEmail = ViewBag.searchStringUserNameOrEmail,
+        currentFilter = ViewBag.CurrentFilter
+    }))

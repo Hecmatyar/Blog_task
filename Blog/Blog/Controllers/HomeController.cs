@@ -40,31 +40,32 @@ namespace Blog.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                posts = db.Posts.Where(a => a.Author.Contains(searchString) || a.Title.Contains(searchString)).ToList();
-                //ViewBag.currentCategory = null;
-                //ViewBag.currentTag = null;
+                posts = db.Posts
+                    .Where(a => a.Author.Contains(searchString) || a.Title.Contains(searchString))
+                    .OrderByDescending(d => d.Published)
+                    .ToList();                
                 ViewBag.searchTheme = "Найденные посты";
             }
             else
             if (!String.IsNullOrEmpty(searchCategory))
             {
-                posts = db.Posts.Where(a => a.Category.Name.Contains(searchCategory)).ToList();
-                //ViewBag.CurrentFilter = null;
-                //ViewBag.currentTag = null;
+                posts = db.Posts.Where(a => a.Category.Name.Contains(searchCategory))
+                    .OrderByDescending(d=>d.Published)
+                    .ToList();               
                 ViewBag.searchTheme = "Посты в категории " + ViewBag.currentCategory;
             }
             else
             if (!String.IsNullOrEmpty(searchTag))
             {
-                posts = db.Posts.Where(a => a.Tags.Any(b => b.Name.Contains(searchTag))).ToList();
-                //ViewBag.currentCategory = null;
-                //ViewBag.CurrentFilter = null;
+                posts = db.Posts.Where(a => a.Tags.Any(b => b.Name.Contains(searchTag)))
+                    .OrderByDescending(d => d.Published)
+                    .ToList();                
                 ViewBag.searchTheme = "Посты с тэгом " + ViewBag.currentTag;
             }
             else
             {
                 ViewBag.searchTheme = "Опубликованные посты";
-                posts = db.Posts.ToList();
+                posts = db.Posts.OrderByDescending(d => d.Published).ToList();
             }
 
             int pageSize = 3;

@@ -11,6 +11,7 @@ using Blog.Models;
 
 namespace Blog.Controllers
 {
+    [Authorize(Roles = "admin, moderator")]
     public class TagsController : Controller
     {
         private PostContext db = new PostContext();
