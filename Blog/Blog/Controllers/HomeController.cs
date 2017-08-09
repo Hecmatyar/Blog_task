@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
+    //[RequireHttps]
     public class HomeController : Controller
     {
         private PostContext db = new PostContext();
