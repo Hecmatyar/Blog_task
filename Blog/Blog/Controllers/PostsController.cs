@@ -17,9 +17,36 @@ namespace Blog.Controllers
         private PostContext db = new PostContext();
 
         // GET: Posts
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder, string searchString)
         {
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            ViewData["CurrentFilter"] = searchString;
+
             var posts = db.Posts.Include(p => p.Category);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                posts = posts.Where(s => s.Author.Contains(searchString)
+                                       || s.Title.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    posts = posts.OrderBy(s => s.Author);
+                    break;
+                case "Date":
+                    posts = posts.OrderBy(s => s.Published);
+                    break;
+                case "Name":
+                    posts = posts.OrderByDescending(s => s.Author);
+                    break;
+                default:
+                    posts = posts.OrderByDescending(s => s.Published);
+                    break;
+            }
+                        
             return View(await posts.ToListAsync());
         }
 
@@ -105,9 +132,9 @@ namespace Blog.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,ShortDescription,Description,UrlSlug,CategoryId, Tags")] Post post, int[] selectededitTags)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,ShortDescription,Description,UrlSlug,CategoryId")] Post post, int[] selectededitTags)
         {
-            //post.Tags.Clear();
+            post.Tags.Clear();
             if (selectededitTags != null)
             {
                 //получаем выбранные курсы
@@ -119,7 +146,6 @@ namespace Blog.Controllers
             post.Published = DateTime.Now;
             post.Author = User.Identity.Name;
             post.UrlSlug = "slug";
-            //db.Entry(post).State = EntityState.Modified;
 
             if (ModelState.IsValid)
             {

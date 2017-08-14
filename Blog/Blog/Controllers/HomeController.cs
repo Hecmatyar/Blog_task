@@ -1,4 +1,6 @@
 ﻿using Blog.Models;
+//using CKSource.CKFinder.Connector.Core.Logs;
+using NLog;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -70,8 +72,16 @@ namespace Blog.Controllers
             }
 
             int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            
+            int pageNumber = (page ?? 1);            
+             
+            //Logger log = LogManager.GetCurrentClassLogger(); 
+            //log.Trace("trace message");
+            //log.Debug("debug message");
+            //log.Info("info message");
+            //log.Warn("warn message");
+            //log.Error("error message");
+            //log.Fatal("fatal message");
+
             return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
@@ -138,5 +148,5 @@ namespace Blog.Controllers
             return View();
         }
 
-    }
+    }    
 }

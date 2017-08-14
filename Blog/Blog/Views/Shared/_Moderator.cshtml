@@ -49,12 +49,8 @@
     @*@Scripts.Render("//cdn.ckeditor.com/4.7.1/full/ckeditor.js")*@
     @Scripts.Render("~/content/ckeditor/ckeditor.js")
     @Scripts.Render("~/content/ckeditor/adapters/jquery.js")
-    @Scripts.Render("~/content/ckfinder/ckfinder.js")
 
-    <script>            
-        CKEDITOR.replace('sdesc');
-        CKEDITOR.replace('desc');
-    </script>
+    
 
     @RenderSection("scripts", required: false)
 </body>

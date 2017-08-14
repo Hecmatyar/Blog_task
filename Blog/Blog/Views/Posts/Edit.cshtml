@@ -76,5 +76,21 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
 
+        CKEDITOR.replace('sdesc',
+            {
+                filebrowserBrowseUrl: '/CKFinderScripts/ckfinder.html',
+                filebrowserImageBrowseUrl: '/CKFinderScripts/ckfinder.html?type=Images',
+                filebrowserUploadUrl: '/ckFinder/connector?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl: '/ckFinder/connector?command=QuickUpload&type=Images'
+            });
+        CKEDITOR.replace('desc',
+            {
+                filebrowserBrowseUrl: '/CKFinderScripts/ckfinder.html',
+                filebrowserImageBrowseUrl: '/CKFinderScripts/ckfinder.html?type=Images',
+                filebrowserUploadUrl: '/ckFinder/connector?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl: '/ckFinder/connector?command=QuickUpload&type=Images'
+            });
+</script>
 

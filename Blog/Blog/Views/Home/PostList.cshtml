@@ -23,7 +23,7 @@
                         @Html.ActionLink(@c.Name, "Index", new { currentCategory = "", currentTag = @c.Name })
                     </span>                   
                 }
-                <span style="float:right;">@b.Published</span>
+                <span style="float:right;">@b.Published.ToString("dd MMMM yyyy HH:mm")</span>
             </p>
         </div>
         <div class="desc-post">

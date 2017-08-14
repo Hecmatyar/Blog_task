@@ -10,29 +10,37 @@
 <p>
     @Html.ActionLink("Новый пост", "Create")
 </p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Поиск по автору и названию статьи: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            @Html.ActionLink(" Все посты", "Index")
+        </p>
+    </div>
+</form>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
+        </th>        
         <th>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
+        </th>       
         @*<th>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UrlSlug)
+            @Html.DisplayNameFor(model => model.Published)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Published)
+            @Html.ActionLink(@Html.DisplayNameFor(model => model.Published).ToString(), "Index", new { sortOrder = ViewBag.DateSortParm })
+            @*<a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Published)</a>*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.ActionLink(@Html.DisplayNameFor(model => model.Author).ToString(), "Index", new { sortOrder = ViewBag.NameSortParm })
+           @* <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Author)</a>*@
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>*@
         <th></th>
     </tr>
 
@@ -66,5 +74,4 @@
         </td>
     </tr>
 }
-
 </table>

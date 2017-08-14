@@ -12,12 +12,17 @@ namespace Blog.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Post>().HasMany(c => c.Tags)
-                .WithMany(s => s.Posts)
-                .Map(t => t.MapLeftKey("PostId")
-                .MapRightKey("TagId"));
-        }
+        //public PostContext() :
+        //    base("DefaultConnection")
+        //{ }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Post>().HasMany(c => c.Tags)
+        //        .WithMany(s => s.Posts)
+        //        .Map(t => t.MapLeftKey("PostId")
+        //        .MapRightKey("TagId")
+        //        .ToTable("PostToTag"));
+        //}
     }
 }

@@ -47,5 +47,13 @@
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
     
     @RenderSection("scripts", required: false)
+    @*<script>
+        var jsBundle = new ScriptBundle("~/app/js")
+            .Include("~/Scripts/jquery.js")
+            .Include("~/Scripts/custom.js");
+    </script>
+    
+    <script type="text/javascript" src="~/app/js"></script>*@
+
 </body>
 </html>
